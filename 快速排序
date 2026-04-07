@@ -1,0 +1,57 @@
+#include <stdio.h>
+#define N 100010
+int n ;
+int a[N];
+
+void printArray(int a[], int len) {
+	for (int i = 0; i < len; i++) {
+		printf("%d ", a[i]);
+	}
+	printf("\n");
+}
+
+void paixu(int a[], int left, int right) {
+	if (left >= right)  return;       //如果指针相遇，则开始返回递归
+
+	int i = left - 1;
+	int j = right + 1;
+	int mid = a[(left + right) / 2];
+	while (i < j) {
+		do {
+			i++;                       //防止死循环
+		} while (a[i] < mid);
+
+		do {
+			j--;
+		} while (a[j] > mid);
+
+		if (i < j) {
+			printf("交换a[%d]=%d和a[%d]=%d: ", i, a[i], j, a[j]);
+			int temp = a[i];
+			a[i] = a[j];
+			a[j] = temp;
+			printArray(a, n);
+		}
+	}
+	paixu(a, left, j);             //递归排序左半部分
+	paixu(a, j+1, right);          //递归排序右半部分
+
+}
+
+int main() {
+	scanf_s("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf_s("%d", &a[i]);
+	}
+	
+	//for (int i = 0; i < n; i++) {
+	//	printf(" %d ", a[i]);
+	//}
+	printf("\n");
+	printf("初始数组: ");
+	printArray(a, n);
+	paixu(a, 0, n - 1);
+	printf("最终排序结果:  ");
+	printArray(a, n);
+	return 0;
+}
