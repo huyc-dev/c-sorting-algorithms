@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+static void printf_array(int* arr, int length) {
+	for (int i = 0; i < length; i++) {
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+}
+
+static void insert_sort(int* arr, int n) {
+	printf("初始数组：");
+	printf_array(arr, n);
+	for (int i = 1; i < n; i++) {
+		int key = arr[i];
+		int j = i - 1;
+		printf("\n---- 第 %d 轮插入，待插入元素：%d ----\n", i, key);
+
+		while (j >= 0 && arr[j] > key) {
+			printf("元素 %d 向后移动一位\n", arr[j]);
+			arr[j + 1] = arr[j];
+			j--;
+			printf("移动后数组：");
+			printf_array(arr, n);
+		}
+		arr[j + 1] = key;
+		printf("插入 %d 到正确位置，当前数组：", key);
+		printf_array(arr, n);
+	}
+	printf("\n===== 最终排序结果 =====\n");
+}
+
+
+int main(){
+	int unsorted_array1[5] = { 50,20,40,10,5 };
+	int n1 = sizeof(unsorted_array1) / sizeof(unsorted_array1[0]);
+	printf("==================== 测试用例1 ====================\n");
+	insert_sort(unsorted_array1, n1);
+	printf_array(unsorted_array1, n1);
+
+
+	int unsorted_array2[5] = { -1,-3,-2,-5,-4 };
+	int n2 = sizeof(unsorted_array2) / sizeof(unsorted_array2[0]);
+	printf("\n==================== 测试用例2 ====================\n");
+	insert_sort(unsorted_array2, n2);
+	printf_array(unsorted_array2, n2);
+
+	int sorted_array[5] = { 1,2,3,4,5 };
+	int n3 = sizeof(sorted_array) / sizeof(sorted_array[0]);
+	printf("\n==================== 测试用例3 ====================\n");
+	insert_sort(sorted_array, n3);
+	printf_array(sorted_array, n3);
+
+	int reverse_sorted_array[5] = { 5,4,3,2,1 };
+	int n4 = sizeof(reverse_sorted_array) / sizeof(reverse_sorted_array[0]);
+	printf("\n==================== 测试用例4 ====================\n");
+	insert_sort(reverse_sorted_array, n4);
+	printf_array(reverse_sorted_array, n4);
+
+	int duplicate_array[5] = { 3,3,2,1,2 };
+	int n5 = sizeof(duplicate_array) / sizeof(duplicate_array[0]);
+	printf("\n==================== 测试用例5 ====================\n");
+	insert_sort(duplicate_array, n5);
+	printf_array(duplicate_array, n5);
+
+	return 0;
+}
